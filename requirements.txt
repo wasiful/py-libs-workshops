@@ -1,0 +1,16 @@
+pygame
+numpy
+pandas
+matplotlib
+jupyterlab
+seaborn
+scikit-learn
+tqdm
+buildozer
+kivy
+pymupdf
+cython
+pdf2image
+pillow
+flet
+db-sqlite3
