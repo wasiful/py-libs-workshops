@@ -11,7 +11,7 @@ L = 1.0   # length of the pendulum (m)
 # Function to compute the derivatives
 def pendulum_derivatives(t, y, omega):
     theta, omega_dot = y
-    dydt = [omega_dot, - (g / L) * np.sin(theta)]
+    dydt = [omega_dot, - omega**2 * np.sin(theta)]  # Omega squared affects the frequency
     return dydt
 
 # Function to solve the pendulum equations
@@ -67,7 +67,7 @@ def init():
 
 # Update function for animation
 def update(frame):
-    omega = s_omega.val
+    omega = s_omega.val  # Get current value from slider
     t_max = 10
     num_points = 1000
     
@@ -87,12 +87,6 @@ def update(frame):
     # Update time text
     time_text.set_text(f'Frequency: {omega:.2f} rad/s')
     
-    # Adjust plot limits
-    ax1.relim()
-    ax1.autoscale_view()
-    ax2.relim()
-    ax2.autoscale_view()
-    
     return pendulum_line, cosine_curve
 
 # Animation function
@@ -104,7 +98,6 @@ ani = FuncAnimation(fig, animate, frames=1000, interval=20, repeat=True, init_fu
 
 # Slider update function
 def slider_update(val):
-    # Stop and restart the animation with the new frequency
     ani.event_source.stop()
     ani.event_source.start()
 
