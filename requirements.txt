@@ -16,4 +16,6 @@ flet
 db-sqlite3
 ipywidgets
 opencv-python
-cv2
+# cv2
+tensorflow
+svgwrite
