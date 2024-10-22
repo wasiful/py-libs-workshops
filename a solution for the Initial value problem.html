@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modified Euler Method Plot</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+
+<div id="plot" style="width: 100%; height: 100%;"></div>
+
+<script>
+// Euler method parameters
+let x0 = 0;
+let y0 = 1;
+let num_steps = 20;
+let a = 0.02; // Guessed neighborhood value
+
+// Arrays to store x and y values for Euler's method
+let x_values = [x0];
+let y_values = [y0];
+let x_values_modified = [x0];
+let y_values_modified = [y0];
+
+
+// Modified Euler's method with variable step size h = (x_n - a) / n
+for (let i = 0; i < num_steps; i++) {
+    let h = (x_values_modified[x_values_modified.length - 1] - a) / (i + 1);
+    let y_new = y_values_modified[y_values_modified.length - 1] + h * (-2 * y_values_modified[y_values_modified.length - 1]);
+    let x_new = x_values_modified[x_values_modified.length - 1] + h;
+    x_values_modified.push(x_new);
+    y_values_modified.push(y_new);
+}
+
+
+let x_exact = [];
+let y_exact = [];
+for (let i = 0; i <= 100; i++) {
+    let x = i * 2 / 100;
+    x_exact.push(x);
+    y_exact.push(Math.exp(-2 * x));
+}
+
+let modified_trace = {
+    x: x_values_modified,
+    y: y_values_modified,
+    mode: 'lines+markers',
+    name: 'Modified Final Value Approximation',
+    marker: { color: 'green' }
+};
+
+
+let exact_trace = {
+    x: x_exact,
+    y: y_exact,
+    mode: 'lines',
+    name: 'Exact Solution y(x) = e^(-2x)',
+    line: { color: 'red' }
+};
+
+let layout = {
+    title: 'Modified Final Value Approximation method',
+    xaxis: { title: 'x' },
+    yaxis: { title: 'y' }
+};
+
+Plotly.newPlot('plot', [modified_trace, exact_trace], layout);
+</script>
+
+</body>
+</html>
